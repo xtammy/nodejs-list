@@ -1,0 +1,48 @@
+﻿<% include ../header.ejs %>
+		<div id="main-content">
+			<div class="container">
+				<div class="row">
+					<div id="content" class="col-lg-12">
+                        <div class="panel panel-default col-sm-3 employee">
+                            <div class="panel-heading">
+                                <strong><%= data[0].s_user%></strong>
+                            </div>
+                            <div class="panel-body">
+                                <ul class="p-info">
+                                    <li class="clearfix">
+                                        <div class="title"><strong>昵称：</strong></div>
+                                        <div class="desk"><%= data[0].s_nickname%></div>
+                                    </li>
+                                    <li class="clearfix">
+                                        <div class="title"><strong>电话：</strong></div>
+                                        <div class="desk"><%= data[0].s_phone%></div>
+                                    </li>
+                                    <li class="clearfix">
+                                        <div class="title"><strong>邮箱：</strong></div>
+                                        <div class="desk"><%= data[0].s_email%></div>
+                                    </li>
+                                    <li class="clearfix">
+                                        <div class="title"><strong>角色：</strong></div>
+                                        <div class="desk">
+                                            <% if(data[0].s_part=="0"){%>普通用户
+                                            <% }else if(data[0].s_part=="1"){%>管理员
+                                            <% }%>
+                                        </div>
+                                    </li>
+                                    <li class="clearfix">
+                                        <div class="title"><strong>员工组：</strong></div>
+                                        <div class="desk"><%= data[0].sg_name%></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div> 
+		</div>
+	</section>
+<script>
+    $(function(){
+
+    });
+<% include ../footer.ejs %>

@@ -1,0 +1,55 @@
+<html>
+    <head>
+   <meta charset="utf-8"> 
+        <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>        
+        <link href="select2.css" rel="stylesheet"/>
+        <script src="select2.js"></script>
+        <script src="select2_locale_zh-CN.js"></script>
+        <script>
+            $(function(){
+                $("#e1").select2({
+                    data:[{id:0,text:'enhancement'},{id:1,text:'bug'},{id:2,text:'duplicate'},{id:3,text:'invalid'},{id:4,text:'wontfix'}]
+                });
+                 
+                var data=[{id:0,tag:'enhancement'},{id:1,tag:'bug'},{id:2,tag:'duplicate'},{id:3,tag:'invalid'},{id:4,tag:'wontfix'}];
+                function format(item) { return item.tag; }
+                 
+                $("#e2").select2({
+                    data:{ results: data, text: 'tag' },
+                    formatSelection: format,
+                    formatResult: format
+                });
+                 
+                $("#e3").select2({
+                    data:{ results: data, text: function(item) { return item.tag; } },
+                    formatSelection: format,
+                    formatResult: format
+                });
+                $("#e4").select2({
+                    data:function() { return { text:'tag', results: data }; },
+                    formatSelection: format,
+                    formatResult: format
+                });
+            }) 
+
+        </script>
+    </head>
+    <body>
+        <h1>以下是四种不同的赋值方式,请查看源码</h1>
+
+        <h2>第一种</h2>
+        <input type="hidden" id="e1" style="width:300px"/>
+
+        <h2>第二种</h2>
+        <input type="hidden" id="e2" style="width:300px"/>
+
+        <h2>第三种</h2>
+        <input type="hidden" id="e3" style="width:300px"/>
+
+        <h2>第四种</h2>
+        <input type="hidden" id="e4" style="width:300px"/>
+
+        
+        
+    </body>
+</html>

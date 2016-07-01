@@ -1,0 +1,46 @@
+﻿<% include ../header.ejs %>
+		<div id="main-content">
+			<div class="container">
+				<div class="row">
+					<div id="content" class="col-lg-12">
+                        <div class="panel panel-default col-sm-3 employee">
+                            <div class="panel-heading">
+                                <h4>员工组详情</h4>
+                            </div>
+                            <div class="panel-body">
+                                <ul class="p-info">
+                                    <li class="clearfix">
+                                        <p><strong>名称</strong></p>
+                                        <p class="gray"><%= data[0].sg_name%>
+                                    </li>
+                                    <li class="clearfix">
+                                        <p><strong>成员：</strong></p>
+                                        <div class="gray">
+                                            <input type="hidden" class="serves" value="<%= data[0].sg_serves%>"/>
+                                            <ol class="pull-left" id="serves">
+
+                                            </ol>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div> 
+		</div>
+	</section>
+<script>
+    $(function(){
+        var val=$('.serves').val();
+        var arr=[],str,html="";
+        str=val.split(',');
+        arr.push(str);
+        $.each(arr[0],function(iterm,val){
+            html += "<li>" + val + "</li>";
+        });
+        $('#serves').html(html);
+
+    });
+<% include ../footer.ejs %>

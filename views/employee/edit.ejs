@@ -1,0 +1,233 @@
+<% include ../header.ejs %>
+    <div id="main-content" style="padding-top:30px">
+        <div class="container">
+            <div class="row">
+                <div id="content" class="col-lg-12">
+                    <!-- 新增工单 -->
+                    <form class="form-horizontal" method="post">
+                        <% if(data==""){ %>
+                            <div class="bg-white">
+
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label">头像：</label>
+                                    <div class="col-sm-10">
+                                        <img src="/images/defaultPic.png" alt=""/>
+                                        <input type="hidden" value="" name="headPic"/>
+                                        <a href="">上 传</a>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><span class="text-point">*</span> 用户名：</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="user" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><span class="text-point">*</span> 姓名：</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="name" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><span class="text-point">*</span> 用户密码：</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="pwd" value="">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"> 昵称：</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="nick" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">电话：</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="phone" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><span class="text-point">*</span> 邮箱：</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="email" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email" class="col-sm-2 control-label"><span class="text-point">*</span> 角色：</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" name="part" style="width: 100%">
+                                            <option value="none"> - 请选择角色 - </option>
+                                            <option value="1">管理员</option>
+                                            <option value="0">普通员工</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email" class="col-sm-2 control-label"><span class="text-point">*</span> 员工组：</label>
+                                    <div class="col-sm-10">
+                                        <select class="select_1" name="group" style="width: 100%">
+                                            <option value="none"> - 请选择员工组 - </option>
+                                            <option value="1">客服一组</option>
+                                            <option value="2">客服二组</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+                        <% }else{%>
+                            <div class="bg-white">
+
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label">头像：</label>
+                                    <div class="col-sm-10">
+                                        <img src="/images/defaultPic.png" alt=""/>
+                                        <input type="hidden" value="<%= data[0].s_headPic%>" name="headPic" />
+                                        <a href="">上 传</a>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><span class="text-point">*</span> 用户名：</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="user" value="<%= data[0].s_name%>">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><span class="text-point">*</span> 姓名：</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="name" value="<%= data[0].s_user%>" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><span class="text-point">*</span> 用户密码：</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="pwd" value="<%= data[0].s_pwd%>" disabled>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"> 昵称：</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="nick" value="<%= data[0].s_nickname%>">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">电话：</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="phone" value="<%= data[0].s_phone%>">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><span class="text-point">*</span> 邮箱：</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="email" value="<%= data[0].s_email%>" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email" class="col-sm-2 control-label"><span class="text-point">*</span> 角色：</label>
+                                    <div class="col-sm-10">
+                                        <select class="select_1" name="part" style="width: 100%">
+                                            <% if(data[0].s_part=='0'){ %>
+                                            <option value="none"> - 请选择角色 - </option>
+                                            <option value="1">管理员</option>
+                                            <option value="0" selected>普通员工</option>
+                                            <% }if(data[0].s_part=='1'){ %>
+                                            <option value="none"> - 请选择角色 - </option>
+                                            <option value="1" selected>管理员</option>
+                                            <option value="0">普通员工</option>
+                                            <% } %>
+
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email" class="col-sm-2 control-label"><span class="text-point">*</span> 员工组：</label>
+                                    <div class="col-sm-10">
+                                        <select class="select_1" name="group" style="width: 100%">
+                                            <% if(data[0].sg_id=='1'){ %>
+                                            <option value="none"> - 请选择员工组 - </option>
+                                            <option value="1" selected>客服一组</option>
+                                            <option value="2">客服二组</option>
+                                            <% }if(data[0].sg_id=='2'){ %>
+                                            <option value="none"> - 请选择员工组 - </option>
+                                            <option value="1">客服一组</option>
+                                            <option value="2" selected>客服二组</option>
+                                            <% }else if(data[0].sg_id=='0'){ %>
+                                            <option value="none"> - 请选择员工组 - </option>
+                                            <option value="1">客服一组</option>
+                                            <option value="2">客服二组</option>
+                                            <% } %>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+                        <% }%>
+
+
+
+
+                        <div class="bg-white">
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-info">确 定</button>
+                                    <a href="#" class="btn btn-default" onclick="javascript:history.back(-1);">取 消</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(function(){
+        $('.select_1').select2();
+        $('.select_tags').select2({tags:true});
+        $(".js-data-example-ajax").select2({
+            ajax: {
+                url: "https://api.github.com/search/repositories",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: data.items,
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) { return markup; },
+            minimumInputLength: 1
+        });
+    });
+<% include ../footer.ejs %>

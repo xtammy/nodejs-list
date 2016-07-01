@@ -1,0 +1,56 @@
+<% include ../header.ejs %>
+
+<div id="main-content">
+    <div class="container">
+        <div class="row">
+            <div id="content" class="col-lg-12">
+                <div class="row" style="margin: 20px 10px 0">
+                    <h2 style="border-bottom: 4px dashed #fff;line-height:2;">修改密码</h2>
+                    <form role="form" method="post">
+                        <div class="form-group">
+                            <label for="pwd">输入密码</label>
+                            <input type="password" class="form-control" name="pwd" id="pwd" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <label for="againPwd">输入新密码</label>
+                            <input type="password" class="form-control" name="againPwd" id="againPwd" value="" />
+                        </div>
+                        <button type="submit" class="btn btn-success">确 定</button>
+                        <button type="submit" class="btn btn-default">取 消</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<script>
+    $(function(){
+        var reg=/^\w{6,15}$/;
+        $('#pwd').blur(function(){
+            var ele=$(this).val();
+            var userID=$("input[name='userId']").val();
+            var flag;
+            if(ele==""){
+                alert('请输入6-15位的字母、数字和下划线...');
+            }else if(reg.test(ele)){
+                $.ajax({
+                    type: "POST",
+                    url: "http://127.0.0.1:8000/changePwd/",
+                    data:{val:ele,userID:userID},
+                    success: function(data){
+                        if(ele!=data[0].s_pwd){
+                            alert('密码输入有误,请重新输入...');
+                        }
+                    },
+                    error:function(XMLHttpRequest, textStatus, errorThrown){
+                        console.log(XMLHttpRequest+"   "+textStatus+"   "+XMLHttpRequest.readyState);
+                    }
+                });
+            }else{
+                alert('请输入6-15位的字母、数字和下划线...');
+            }
+        })
+    });
+<% include ../footer.ejs %>

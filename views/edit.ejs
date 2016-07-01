@@ -1,0 +1,484 @@
+<% include header.ejs %>
+<div id="main-content" style="padding-top:30px">
+    <div class="container">
+        <div class="row">
+            <div id="content" class="col-lg-9">
+                <% if(data==""){ %>
+                    <!-- 新增工单 -->
+                    <form class="form-horizontal" method="post">
+                        <div class="bg-white">
+                            <div class="form-group">
+                                <label for="theme" class="col-sm-1 control-label"><span class="text-point">*</span> 主题：</label>
+                                <div class="col-sm-11">
+                                    <input type="text" class="form-control" id="theme" name="theme" placeholder="请输入主题">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">描述：</label>
+                                <div class="col-sm-11 desc">
+                                    <script id="editors" type="text/plain" name="content" style="width:100%;"></script>
+                                    <a href="">上 传</a><input name="upload" type="hidden" value="images"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white">
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label">受理客服组：</label>
+                                <div class="col-sm-2">
+                                    <select class="form-control" id="emGroup">
+                                        <option value="0"> -请选择- </option>
+                                    </select>
+                                </div>
+
+                                <label class="col-sm-1 control-label">受理客服：</label>
+                                <div class="col-sm-2">
+                                    <select class="form-control" id="emplo" name="serve">
+                                        <option value="0"> -请选择- </option>
+                                    </select>
+                                </div>
+
+                                <label class="col-sm-1 control-label">状态：</label>
+                                <div class="col-sm-2">
+                                    <select class="select_1" name="status" style="width: 100%">
+                                        <option value="1">已分配</option>
+                                        <option value="2">解决中</option>
+                                        <option value="2">已解决</option>
+                                        <option value="2">已关闭</option>
+                                    </select>
+                                </div>
+
+                                <label class="col-sm-1 control-label">优先级：</label>
+                                <div class="col-sm-2">
+                                    <select class="select_1" name="level" style="width: 100%">
+                                        <option value="1">标准</option>
+                                        <option value="2">紧急</option>
+                                        <option value="3">高</option>
+                                        <option value="4">低</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+
+                                <label class="col-sm-1 control-label" for="searchCustom">客户:</label>
+                                <div class="col-sm-2">
+                                    <input type="hidden" class="col-sm-12" id="searchCustom" value="" name="customer"/>
+                                </div>
+
+                                <label class="col-sm-1 control-label" for="select_tags">标签：</label>
+                                <div class="col-sm-2">
+                                    <input type="hidden" id="select_tags" class="col-sm-12" value="" name="tags"/>
+                                </div>
+                                <label class="col-sm-1 control-label" for="follower">关注人：</label>
+                                <div class="col-sm-2">
+                                    <input type="hidden" id="follower" class="col-sm-12" value="" name="follower"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white">
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">回复：</label>
+                                <div class="col-sm-11">
+                                    <textarea class="form-control" rows="3" name="remark"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="qudao" value="1"/>
+                        <div class="bg-white">
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-info">确 定</button>
+                                    <a href="#" class="btn btn-default" onclick="javascript:history.back(-1);">取 消</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                <% }else{ %>
+                    <form class="form-horizontal" method="post">
+                        <div class="bg-white">
+                            <div class="form-group">
+                                <label for="theme" class="col-sm-1 control-label"><span class="text-point">*</span> 主题：</label>
+                                <div class="col-sm-11">
+                                    <input type="text" class="form-control" id="theme" name="theme" value="<%= data[0].o_title%>">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">描述：</label>
+                                <div class="col-sm-11 desc">
+                                    <script id="editors" type="text/plain" name="content" style="width:100%;"></script>
+                                    <a href="">上 传</a><input name="upload" type="hidden" value="images"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white">
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label">受理客服组：</label>
+                                <div class="col-sm-2">
+                                    <select class="form-control" id="emGroup">
+                                        <option value="0"> -请选择- </option>
+                                    </select>
+                                </div>
+
+                                <label class="col-sm-1 control-label">受理客服：</label>
+                                <div class="col-sm-2">
+                                    <select class="form-control" id="emplo" name="serve">
+                                        <option value="0"> -请选择- </option>
+                                    </select>
+                                </div>
+
+                                <label class="col-sm-1 control-label">状态：</label>
+                                <div class="col-sm-2">
+                                    <select class="select_1" name="status" style="width: 100%">
+                                        <% if(data[0].o_status==1){ %>
+                                        <option value="0"> - 请选择 - </option>
+                                        <option value="1" selected>已分配</option>
+                                        <option value="2">解决中</option>
+                                        <option value="3">已解决</option>
+                                        <option value="4">已关闭</option>
+                                        <% }else if(data[0].o_status==2){ %>
+                                        <option value="0"> - 请选择 - </option>
+                                        <option value="1">已分配</option>
+                                        <option value="2" selected>解决中</option>
+                                        <option value="3">已解决</option>
+                                        <option value="4">已关闭</option>
+                                        <% }else if(data[0].o_status==3){ %>
+                                        <option value="0"> - 请选择 - </option>
+                                        <option value="1">已分配</option>
+                                        <option value="2">解决中</option>
+                                        <option value="3" selected>已解决</option>
+                                        <option value="4">已关闭</option>
+                                        <% }else if(data[0].o_status==4){ %>
+                                        <option value="0"> - 请选择 - </option>
+                                        <option value="1">已分配</option>
+                                        <option value="2">解决中</option>
+                                        <option value="3">已解决</option>
+                                        <option value="4" selected>已关闭</option>
+                                        <% }else{ %>
+                                        <option value="0"> - 请选择 - </option>
+                                        <option value="1">已分配</option>
+                                        <option value="2">解决中</option>
+                                        <option value="2">已解决</option>
+                                        <option value="2">已关闭</option>
+                                        <% } %>
+                                    </select>
+                                </div>
+
+                                <label class="col-sm-1 control-label">优先级：</label>
+                                <div class="col-sm-2">
+                                    <select class="select_1" name="level" style="width: 100%">
+                                        <% if(data[0].o_level==1){ %>
+                                        <option value="0"> - 请选择 - </option>
+                                        <option value="1" selected>标准</option>
+                                        <option value="2">紧急</option>
+                                        <option value="3">高</option>
+                                        <option value="4">低</option>
+                                        <% }else if(data[0].o_level==2){ %>
+                                        <option value="0"> - 请选择 - </option>
+                                        <option value="1">标准</option>
+                                        <option value="2" selected>紧急</option>
+                                        <option value="3">高</option>
+                                        <option value="4">低</option>
+                                        <% }else if(data[0].o_level==3){ %>
+                                        <option value="0"> - 请选择 - </option>
+                                        <option value="1">标准</option>
+                                        <option value="2">紧急</option>
+                                        <option value="3" selected>高</option>
+                                        <option value="4">低</option>
+                                        <% }else if(data[0].o_level==4){ %>
+                                        <option value="0"> - 请选择 - </option>
+                                        <option value="1">标准</option>
+                                        <option value="2">紧急</option>
+                                        <option value="3">高</option>
+                                        <option value="4" selected>低</option>
+                                        <% }else{ %>
+                                        <option value="0"> - 请选择 - </option>
+                                        <option value="1">标准</option>
+                                        <option value="2">紧急</option>
+                                        <option value="3">高</option>
+                                        <option value="4">低</option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+
+                                <label class="col-sm-1 control-label" for="searchCustom">客户:</label>
+                                <div class="col-sm-2">
+                                    <input type="hidden" class="col-sm-12" id="searchCustom" value="<%= data[0].cu_name%>" name="customer"/>
+                                </div>
+
+                                <label class="col-sm-1 control-label" for="select_tags">标签：</label>
+                                <div class="col-sm-2">
+                                    <input type="hidden" id="select_tags" class="col-sm-12" value="<%= data[0].o_tags%>" name="tags"/>
+                                </div>
+                                <label class="col-sm-1 control-label" for="follower">关注人：</label>
+                                <div class="col-sm-2">
+                                    <input type="hidden" id="follower" class="col-sm-12" value="<%= data[0].o_follower%>" name="follower"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white">
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">回复：</label>
+                                <div class="col-sm-11">
+                                    <textarea class="form-control" rows="3" name="remark"><%= data[0].o_remark%></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="qudao" value="1"/>
+                        <div class="bg-white">
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-info">确 定</button>
+                                    <a href="#" class="btn btn-default" onclick="javascript:history.back(-1);">取 消</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                <% } %>
+            </div>
+
+            <!--*****************************************     查询客户显示的内容       *********************************************************************************-->
+            <div class="col-lg-3" id="showCustomer" style="margin-top: 10px">
+
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<!-- 文本编辑器 -->
+<script type="text/javascript" charset="utf-8" src="plugins/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="plugins/ueditor/ueditor.all.js"> </script>
+<script type="text/javascript" charset="utf-8" src="plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+<!--多选框-->
+<link rel="stylesheet" href="plugins/select2/css/select2.css"/>
+<script src="plugins/select2/js/select2.js"></script>
+<script src="plugins/select2/js/select2_locale_zh-CN.js"></script>
+<script>
+    $(function(){
+        var ue = UE.getEditor('editors',{
+            initialFrameHeight:220,//设置编辑器高度
+            scaleEnabled:true
+        });
+        var result=<%- JSON.stringify(data)%>;
+        if(result.length>=1){
+            ue.ready(function() {
+                ue.setContent(result[0]['o_description']);
+            });
+        }
+        /****************************************************************    美化下拉框       ********************************************************************/
+        $('.select_1').select2();
+        $("#select_tags").select2({
+            tags:[],
+            maximumSelectionSize: 3
+        });
+        /*****************************************************************       客服联动      ******************* ***********************************************/
+        $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:8000/group/",
+            success: function(data){
+                var html="";
+                $.each(data,function(item,value){
+                    if(result.length>=1){
+                        var sg_name=value.sg_name;
+                        if(result[0].sg_name==sg_name){
+                            html += "<option value=\"" + value.sg_id + "\" selected>" + value.sg_name + "</option>";
+                        }else{
+                            html += "<option value=\"" + value.sg_id + "\" >" + value.sg_name + "</option>";
+                        }
+                    }else{
+                        html += "<option value=\"" + value.sg_id + "\" >" + value.sg_name + "</option>";
+                    }
+                });
+                $("#emGroup").html("<option value='0'> -请选择客服组- </option> "+html);
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                console.log(XMLHttpRequest.status+"   "+textStatus+"   "+XMLHttpRequest.readyState);
+            }
+        });
+        $('#emGroup').change(function(){
+            var group=$(this).val();
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:8000/groupList/",
+                data:{groupNum:group},
+                success: function(data){
+                    var html="";
+                    $.each(data,function(item,value){
+                        html += "<option value=\"" + value.s_id + "\" >" + value.s_user + "</option>";
+                    });
+                    $("#emplo").html("<option value='0'> -请选择客服- </option> "+html);
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    console.log(XMLHttpRequest.status+"   "+textStatus+"   "+XMLHttpRequest.readyState);
+                }
+            });
+        });
+/*****************************************************************  通过关键字查询结果 ****************************************************************************/
+        $("#searchCustom").select2({
+            minimumInputLength: 1,
+            maximumInputLength:100,
+            initSelection: function (element, callback) {
+                var data = [{id: element.val(), name: element.val()}];
+                callback({id: element.val(), name: element.val()});//这里初始化
+            },
+            ajax: {
+                url: "http://127.0.0.1:8000/searchKey/",
+                dataType: 'json',
+                delay:'250',
+                data: function (params) {
+                    return {'term' : params };
+                },
+                results: function (data, page) {
+                    var results = [];
+                    $.each(data, function (i, v) {
+                        var o = {};
+                        o.id = v.cu_id;
+                        o.name = v.cu_name;
+                        results.push(o);
+                    });
+                    return {
+                        results: results
+                    };
+                },
+                cache: true
+            },
+            formatResult: function (data) {
+                if (data.loading) return data.text;
+                var markup = '<div class="clearfix">' +
+                        '<div class="col-sm-12">' + data.name + '</div>' +
+                        '</div>';
+                return markup;
+            },
+            formatSelection: function(data){return data.name;},
+            escapeMarkup: function (markup) { return markup; }
+        });
+        $('#searchCustom').change(function(){
+            var selectId=$(this).val();
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/customid/",
+                data:{id:selectId},
+                success: function(data){
+                    $('#showCustomer').html("<div class='panel panel-default main_content'> " +
+                            "<div class='panel-heading'>"+data[0].cu_name+"<a  href='' class='link_det'>[详情]</a></div>" +
+                            "<div class='panel-body'>" +
+                            "<div class='user-info'><span class='info-title'>电话：</span><span class='info-content'>"+ data[0].cu_phone +"</span></div>" +
+                            "<div class='user-info'><span class='info-title'>邮箱：</span><span class='info-content'>"+ data[0].cu_email +"</span></div>" +
+                            "<div class='user-info'><span class='info-title'>描述：</span><span class='info-content'>"+ data[0].cu_description+"</span></div>" +
+                            "<div class='user-info'><span class='info-title'>微信：</span><span class='info-content'>"+ data[0].cu_wx+"</span></div>" +
+                        //                "<div class='user-info'><span class='info-title'>备注：</span><span class='info-content'>xxxxxx</span></div>" +
+                        //                "<div class='user-info'><span class='info-title'>负责组：</span><span class='info-content'>"+ data[0].cu_description+"</span></div>" +
+                        //                "<div class='user-info'><span class='info-title'>负责人：</span><span class='info-content'>001</span></div></div>" +
+                            "<div class='panel-footer'><p>公司："+ data[0].c_name+"  <a href='#' class='text-success'>[详情]</a></p></div></div>");
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    console.log(XMLHttpRequest.status+"   "+textStatus+"   "+XMLHttpRequest.readyState);
+                }
+            });
+        });
+        $("#follower").select2({
+            tags:[],
+            minimumInputLength: 1,
+            maximumInputLength:100,
+            multiple: true,
+            separator: ",",
+            initSelection : function (element, callback) {   // 初始化时设置默认值
+                var data = [];
+                $(element.val().split(",")).each(function () {
+                    data.push({id: this, name: this});
+                });
+                callback(data);
+            },
+            ajax: {
+                url: "http://127.0.0.1:8000/searchEm/",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {'term' : params };
+                },
+                results: function (data, page) {
+                    var results = [];
+                    $.each(data, function (i, v) {
+                        var o = {};
+                        o.id = v.s_id;
+                        o.name = v.s_user;
+                        results.push(o);
+                    });
+                    return {
+                        results: results
+                    };
+                },
+                cache: true
+            },
+            formatResult: function (data) {
+                if (data.loading) return data.text;
+                var markup = '<div class="clearfix">' +
+                        '<div class="col-sm-12">' + data.name + '</div>' +
+                        '</div>';
+                return markup;
+            },
+            formatSelection: function(data){return data.name;},
+            escapeMarkup: function (markup) { return markup; }
+        });
+
+//        -------------------------------------------------------------------  有数据时显示数据   ------------------------------------------------------------------------
+        if(result.length>=1){
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:8000/groupList/",
+                data:{groupNum:result[0].sg_id},
+                success: function(data){
+                    var html="";
+                    $.each(data,function(item,value){
+                        var s_user=value.s_user;
+                        if(result[0].s_user==s_user){
+                            html += "<option value=\"" + value.s_id + "\" selected>" + value.s_user + "</option>";
+                        }else{
+                            html += "<option value=\"" + value.s_id + "\" >" + value.s_user + "</option>";
+                        }
+                    });
+                    $("#emplo").html("<option value='0'> -请选择客服- </option> "+html);
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    console.log(XMLHttpRequest.status+"   "+textStatus+"   "+XMLHttpRequest.readyState);
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/customid/",
+                data:{id: result[0].cu_id},
+                success: function(data){
+                    $('#showCustomer').html("<div class='panel panel-default main_content'> " +
+                            "<div class='panel-heading'>"+data[0].cu_name+"<a  href='' class='link_det'>[详情]</a></div>" +
+                            "<div class='panel-body'>" +
+                            "<div class='user-info'><span class='info-title'>电话：</span><span class='info-content'>"+ data[0].cu_phone +"</span></div>" +
+                            "<div class='user-info'><span class='info-title'>邮箱：</span><span class='info-content'>"+ data[0].cu_email +"</span></div>" +
+                            "<div class='user-info'><span class='info-title'>描述：</span><span class='info-content'>"+ data[0].cu_description+"</span></div>" +
+                            "<div class='user-info'><span class='info-title'>微信：</span><span class='info-content'>"+ data[0].cu_wx+"</span></div>" +
+                        //                "<div class='user-info'><span class='info-title'>备注：</span><span class='info-content'>xxxxxx</span></div>" +
+                        //                "<div class='user-info'><span class='info-title'>负责组：</span><span class='info-content'>"+ data[0].cu_description+"</span></div>" +
+                        //                "<div class='user-info'><span class='info-title'>负责人：</span><span class='info-content'>001</span></div></div>" +
+                            "<div class='panel-footer'><p>公司："+ data[0].c_name+"  <a href='#' class='text-success'>[详情]</a></p></div></div>");
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    console.log(XMLHttpRequest.status+"   "+textStatus+"   "+XMLHttpRequest.readyState);
+                }
+            });
+        }
+    });
+<% include footer.ejs %>
